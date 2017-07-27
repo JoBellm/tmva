@@ -25,13 +25,34 @@ import ROOT
 title   = "TMVAClassification"
 outpath = "TMVAClassification.root"
 
-sigpath = "./Signal.txt"
-bkgpath1 = "./Background1.txt"
-bkgpath2 = "./Background2.txt"
-
+sigpath = ""
 crossSectionSignal=1.
-crossSectionBackground1=1.
-crossSectionBackground2=1.
+# Background => [[bgrpath1,BGXS1],[bgrpath2,BGXS2],...]
+Background=[]
+
+
+print "Reading setup.info"
+print "   Make sure format is:"
+print "   First line:   PathToSignal:SignalCrossSection "
+print "   Next lines (multiple possible):   PathToBackGround:BackGroundCrossSection "
+
+import time
+time.sleep(2)
+
+with open("setup.info", 'r') as f:
+  first_line = f.readline().split(":")
+  sigpath =first_line[0]
+  crossSectionSignal=float(first_line[1].replace("\n",""))
+  for line in f:
+    line.replace("\n","")
+    line= line.split(":")
+    Background+=[[line[0],float(line[1])]]
+print "Signal from:"
+print sigpath,crossSectionSignal
+print "Backgrounds:"
+print Background
+
+time.sleep(2)
 
 
 # Get the variables to train to from signal file.
@@ -71,8 +92,8 @@ dataloader = ROOT.TMVA.DataLoader()
 
 # Register the trees
 dataloader.AddSignalTree    ( sigpath,  crossSectionSignal );
-dataloader.AddBackgroundTree( bkgpath1, crossSectionBackground1 );
-dataloader.AddBackgroundTree( bkgpath2, crossSectionBackground2 );
+for back in Background:
+  dataloader.AddBackgroundTree( back[0], back[1] );
 
 # Add variables:
 for ivar in varlist :

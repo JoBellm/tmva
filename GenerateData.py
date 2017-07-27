@@ -16,9 +16,16 @@
 # ----------------------------------------------------------------------------------- #
 import ROOT
 
-outprefixSG = "./Signal"
-outprefixBG1 = "./Background1"
-outprefixBG2 = "./Background2"
+outprefixSG = "./Signal.tex"
+outprefixBG1 = "./Background1.tex"
+outprefixBG2 = "./Background2.tex"
+
+
+setupfile=open("setup.info","w")
+setupfile.write("%s:%s\n"%(outprefixSG,"1."))
+setupfile.write("%s:%s\n"%(outprefixBG1,"1."))
+setupfile.write("%s:%s\n"%(outprefixBG2,"1."))
+
 npoint = 10000
 seed = 1
 
@@ -38,13 +45,15 @@ SGx=[]
 SGy=[]
 SGw=[]
 
+
 # ----------------------------------------------------------------------------------- #
 # Generate data files:
 # ----------------------------------------------------------------------------------- #
 
 
 # Open Ascii output (with open as ... automatically closes file when exiting block)
-with open( outprefixSG+".txt", "w" ) as outtxt :
+with open( outprefixSG, "w" ) as outtxt :
+  
     # ROOT/TMVA needs to know the data format of the txt file if it is to be used as input,
     # so this has to be written as a header of the .txt file:
     outtxt.write("x_f:y_f:weight\n")
@@ -63,7 +72,7 @@ with open( outprefixSG+".txt", "w" ) as outtxt :
         SGy+=[data[1]]
         SGw+=[data[2]]
         
-with open( outprefixBG1+".txt", "w" ) as outtxt :
+with open( outprefixBG1, "w" ) as outtxt :
     # ROOT/TMVA needs to know the data format of the txt file if it is to be used as input,
     # so this has to be written as a header of the .txt file:
     outtxt.write("x_f:y_f:weight\n")
@@ -80,7 +89,7 @@ with open( outprefixBG1+".txt", "w" ) as outtxt :
         BG1y+=[data[1]]
         BG1w+=[data[2]]
 
-with open( outprefixBG2+".txt", "w" ) as outtxt :
+with open( outprefixBG2, "w" ) as outtxt :
     # ROOT/TMVA needs to know the data format of the txt file if it is to be used as input,
     # so this has to be written as a header of the .txt file:
     outtxt.write("x_f:y_f:weight\n")
@@ -98,9 +107,10 @@ with open( outprefixBG2+".txt", "w" ) as outtxt :
         BG2y+=[data[1]]
         BG2w+=[data[2]]
 
+
+# Here we populate the 2d phase space randomly.
+
 with open( "Test.txt", "w" ) as outtxt :
-    # ROOT/TMVA needs to know the data format of the txt file if it is to be used as input,
-    # so this has to be written as a header of the .txt file:
     outtxt.write("x_f:y_f:weight\n")
     import random
     
