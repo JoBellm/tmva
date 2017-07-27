@@ -24,7 +24,14 @@ weightprefix = "default/weights/TMVAClassification"
 testpath = "./Test.txt"
 
 # Name of variables
-varlist = ["x", "y"] 
+varlist = []
+with open(testpath, 'r') as f:
+  first_line = f.readline().split(":")[:-1]
+  for var in first_line:
+    var=var.split("_")
+    print "Variables to use: ", "%s_%s"%(var[0],var[1])
+    varlist+=["%s_%s"%(var[0],var[1])]
+
 
 # Define list of methods that you have trained in the previous script (Given by titles)
 methodlist = [ "BDTA", "Fisher" ]
@@ -72,12 +79,12 @@ for ientry in xrange( testtree.GetEntries() ) :
       break
     value=reader.EvaluateMVA( methodlist[0] )
     if value > 0. :
-      outputx+=[vardict["x"][0]]
-      outputy+=[vardict["y"][0]]
+      outputx+=[vardict[varlist[0]][0]]
+      outputy+=[vardict[varlist[1]][0]]
       outputweight+=[value]
     else:
-      negoutputx+=[vardict["x"][0]]
-      negoutputy+=[vardict["y"][0]]
+      negoutputx+=[vardict[varlist[0]][0]]
+      negoutputy+=[vardict[varlist[1]][0]]
       negoutputweight+=[-value]
 
 # ----------------------------------------------------------------------------------- #

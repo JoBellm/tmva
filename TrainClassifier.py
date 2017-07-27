@@ -34,15 +34,20 @@ crossSectionBackground1=1.
 crossSectionBackground2=1.
 
 
-# Define list of variables that will be trained on ( , "f") is there to tell TMVA that it is a 
-# floating point number. Use I for integers (descrete variables)
-varlist = [ ("x", "f"),
-            ("y", "f") ]
+# Get the variables to train to from signal file.
+# Variables should end with *_f if float and *_I if Integers.
 
+varlist = []
+with open(sigpath, 'r') as f:
+  first_line = f.readline().split(":")[:-1]
+  for var in first_line:
+    var=var.split("_")
+    print "Variables to train: ", "%s_%s"%(var[0],var[1])
+    varlist+=[("%s_%s"%(var[0],var[1]),var[1])]
 
 methodlist = [ (ROOT.TMVA.Types.kFisher, "Fisher", "") ,
                (ROOT.TMVA.Types.kBDT, "BDTA", ":".join([
-                "NTrees=100","MinNodeSize=7","MaxDepth=7","BoostType=AdaBoost","AdaBoostBeta=0.5",
+                "NTrees=100","MinNodeSize=5","MaxDepth=5","BoostType=AdaBoost","AdaBoostBeta=0.5",
                 "SeparationType=GiniIndex","nCuts=20","PruneMethod=NoPruning"])) ]
 
 

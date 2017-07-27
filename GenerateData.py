@@ -47,7 +47,7 @@ SGw=[]
 with open( outprefixSG+".txt", "w" ) as outtxt :
     # ROOT/TMVA needs to know the data format of the txt file if it is to be used as input,
     # so this has to be written as a header of the .txt file:
-    outtxt.write("x:y:weight\n")
+    outtxt.write("x_f:y_f:weight\n")
 
     # Generate 'signal' and 'background' distributions:
     for i in xrange( npoint ):
@@ -66,7 +66,7 @@ with open( outprefixSG+".txt", "w" ) as outtxt :
 with open( outprefixBG1+".txt", "w" ) as outtxt :
     # ROOT/TMVA needs to know the data format of the txt file if it is to be used as input,
     # so this has to be written as a header of the .txt file:
-    outtxt.write("x:y:weight\n")
+    outtxt.write("x_f:y_f:weight\n")
     
     # Generate 'signal' and 'background' distributions:
     for i in xrange( npoint ):
@@ -83,7 +83,7 @@ with open( outprefixBG1+".txt", "w" ) as outtxt :
 with open( outprefixBG2+".txt", "w" ) as outtxt :
     # ROOT/TMVA needs to know the data format of the txt file if it is to be used as input,
     # so this has to be written as a header of the .txt file:
-    outtxt.write("x:y:weight\n")
+    outtxt.write("x_f:y_f:weight\n")
     
     # Generate 'signal' and 'background' distributions:
     for i in xrange( npoint ):
@@ -101,7 +101,7 @@ with open( outprefixBG2+".txt", "w" ) as outtxt :
 with open( "Test.txt", "w" ) as outtxt :
     # ROOT/TMVA needs to know the data format of the txt file if it is to be used as input,
     # so this has to be written as a header of the .txt file:
-    outtxt.write("x:y:weight\n")
+    outtxt.write("x_f:y_f:weight\n")
     import random
     
     # Generate 'signal' and 'background' distributions:
