@@ -34,7 +34,8 @@ with open(testpath, 'r') as f:
 
 
 # Define list of methods that you have trained in the previous script (Given by titles)
-methodlist = [ "BDTA", "Fisher" ]
+import getMethods
+methodlist = getMethods.getMethodList()
 outputx=[]
 outputy=[]
 outputweight=[]
@@ -94,9 +95,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-plt.scatter(np.array(outputx),np.array(outputy),s=np.array(outputweight)
+plt.scatter(np.array(outputx),np.array(outputy),s=np.array(outputweight)*3.
             , color="green", alpha=0.5, lw=0)
-plt.scatter(np.array(negoutputx),np.array(negoutputy),s=np.array(negoutputweight)
+plt.scatter(np.array(negoutputx),np.array(negoutputy),s=np.array(negoutputweight)*3.
             , color="red", alpha=0.5, lw=0)
 plt.xlim([-9.,9.])
 plt.ylim([-5.,5.])

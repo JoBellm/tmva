@@ -66,11 +66,10 @@ with open(sigpath, 'r') as f:
     print "Variables to train: ", "%s_%s"%(var[0],var[1])
     varlist+=[("%s_%s"%(var[0],var[1]),var[1])]
 
-methodlist = [ (ROOT.TMVA.Types.kFisher, "Fisher", "") ,
-               (ROOT.TMVA.Types.kBDT, "BDTA", ":".join([
-                "NTrees=100","MinNodeSize=5","MaxDepth=5","BoostType=AdaBoost","AdaBoostBeta=0.5",
-                "SeparationType=GiniIndex","nCuts=20","PruneMethod=NoPruning"])) ]
 
+# We 
+import getMethods
+methodlist = getMethods.getMethods()
 
 # ------------------------------------------------------------
 # Section for setting up TMVA
@@ -80,7 +79,7 @@ tmvaoutput = ROOT.TFile( outpath, "RECREATE" )
 
 factory = ROOT.TMVA.Factory( title, tmvaoutput, 
                              ":".join([ "!V",                            # Dont print everything
-                                        "!Silent",                         # Print something
+                                        "Silent",                         # Print something
                                         "Transformations=I",               # Perform training on dataset without transforming
                                         "AnalysisType=Classification"] ) ) # Analysis is of 'A vs B' separation type
 
